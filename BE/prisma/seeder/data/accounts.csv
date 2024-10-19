@@ -1,0 +1,5 @@
+id,name,email,password,role,verified
+ba6ef762-d350-4e80-bf6c-706e3cda05c6,Super Admin Crypto,super-admin@ch.org,Crypto#Health2024,SUPERADMIN,true
+239d0623-0828-420e-a47a-c0eea45d9404,Crypto Admin,admin@ch.org,Crypto#Health2024,ADMIN,true
+b0ad9899-c0a4-4223-82f8-ba9bd61caad1,User1,user1@gmail.com,Crypto#Health2024,USER,true
+6a9c0f2d-99ad-4e1a-bbc7-3d88d9d98ae1,User2,user2@gmail.com,Crypto#Health2024,USER,false
