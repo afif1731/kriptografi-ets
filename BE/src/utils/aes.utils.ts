@@ -1,5 +1,5 @@
 import { AES, enc } from 'crypto-js';
-const AES_KEY = process.env.NEXT_PUBLIC_AES_KEY || 'your-secret-key'
+const AES_KEY = process.env.AES_KEY || 'your-secret-key'
 
 export const doAES = {
     decrypt(encryptedText: string): string {

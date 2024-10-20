@@ -2,6 +2,7 @@ import { PrismaClient } from '@prisma/client';
 
 import csv from 'csvtojson';
 import * as bcryptjs from 'bcryptjs';
+import { medicineList } from './data/medicine';
 
 const prisma = new PrismaClient();
 
@@ -45,8 +46,32 @@ async function accounts() {
   }
 }
 
+async function medicine() {
+  const dataMedicine = medicineList;
+
+  for(const med of dataMedicine) {
+    await prisma.medicine.upsert({
+      where: { id: med.id },
+      update: {
+        name: med.name,
+        description: med.description,
+        price: med.price,
+        img_link: med.img_link
+      },
+      create: {
+        id: med.id,
+        name: med.name,
+        description: med.description,
+        price: med.price,
+        img_link: med.img_link
+      }
+    })
+  }
+}
+
 const main = async () => {
   await accounts();
+  await medicine();
 };
 
 main()

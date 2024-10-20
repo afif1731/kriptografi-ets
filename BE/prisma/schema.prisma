@@ -13,14 +13,70 @@ enum Role {
   USER
 }
 
-model Accounts {
-    id                  String      @id @default(uuid())
-    name                String
-    email               String      @unique
-    password            String
-    role                Role        @default(USER)
-    is_email_verified   Boolean     @default(false)
-    created_at          DateTime    @default(now())
-    updated_at          DateTime    @default(now()) @updatedAt
+enum ComplaintStatus {
+  SOLVED
+  UNSOLVED
+  PARTIAL
 }
 
+enum PaymentStatus {
+  PAID
+  PENDING
+  CANCELED
+  FAILED
+}
+
+model Accounts {
+  id                  String      @id @default(uuid())
+  name                String
+  email               String      @unique
+  password            String
+  role                Role        @default(USER)
+  is_email_verified   Boolean     @default(false)
+  created_at          DateTime    @default(now())
+  updated_at          DateTime    @default(now()) @updatedAt
+}
+
+model Complaint {
+  id        String    @id @default(uuid())
+  name      String
+  phone     String
+  address   String
+  complaint String
+
+  status      ComplaintStatus?  @default(UNSOLVED)
+  diagnose    String?
+  doctor_msg  String?
+  medicine_id String?
+  medicine    Medicine?   @relation(references: [id], fields: [medicine_id])
+
+  created_at  DateTime    @default(now())
+  updated_at  DateTime    @default(now()) @updatedAt
+}
+
+model Medicine {
+  id          String    @id @default(uuid())
+  name        String
+  price       Int
+  img_link    String?
+  description String?
+  complaint   Complaint[]
+
+  created_at  DateTime    @default(now())
+  updated_at  DateTime    @default(now()) @updatedAt
+}
+
+model BankTransfer {
+  id                String    @id @default(uuid())
+  order_id          String
+  gross_amount      String
+  card_number       String
+  card_month_expire String
+  card_year_expire  String
+  card_cvc          String
+  transfer_msg      String
+  payment_status    PaymentStatus?    @default(PENDING)
+
+  created_at  DateTime    @default(now())
+  updated_at  DateTime    @default(now()) @updatedAt
+}
